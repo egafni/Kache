@@ -32,10 +32,16 @@ The following will persist the cache to a shelf stored at **/tmp/db**.  It will 
         return a*b
 
 The following will **only** use the value of b to key the hash.  So a call to x(a=1,b=3) after callign x(a=0, b=3) will return the same (but incorrect) result.
-Useful if you have complex parameters and you want to create your own unique identifier for the hash.
+Useful if you have complex parameters and you want to create your own unique identifier for the hash.  This is often the case when you want to cache
+a complicated long-running function that is executed only one time.
 
 .. code-block:: python
 
     @cache(db_path='/tmp/db', key=lambda params: params['b'])
+    def x(a,b=2):
+        return a*b
+
+    # or, if you know it will only be executed once in this session...
+    @cache(db_path='/tmp/db', key=lambda params: 1)
     def x(a,b=2):
         return a*b

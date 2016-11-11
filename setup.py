@@ -24,21 +24,16 @@ def find_all(path, reg_expr, inverse=False, remove_prefix=False):
                 yield out
 
 
-install_requires = ['funcsigs'
-]
+install_requires = ['funcsigs']
 
-if sys.version_info < (3,):
-    # package_dir = {'': 'kache'}
-    package_data = {'kache': list(find_all('kache/', '.py|.pyc$', inverse=True, remove_prefix=True))}
-    install_requires += ['futures', 'configparser']
-else:
-    package_dir = {'': 'kache'}
-    package_data = {'kache': list(find_all('kache/', '.py|.pyc$', inverse=True, remove_prefix=True))}
+package_data = {'kache': list(find_all('kache/', '.py|.pyc$', inverse=True, remove_prefix=True))}
+print package_data
 
 setup(
     name="kache",
     version=__version__,
     description="Persistent caching decorator",
+    url="http://github.com/egafni/Kache",
     author="Erik Gafni",
     author_email="egafni@gmail.com",
     maintainer="Erik Gafni",

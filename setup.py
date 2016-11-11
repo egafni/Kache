@@ -36,11 +36,9 @@ else:
     package_data = {'kache': list(find_all('kache/', '.py|.pyc$', inverse=True, remove_prefix=True))}
 
 setup(
-    name="kache-wfm",
+    name="kache",
     version=__version__,
-    scripts=['bin/kache'],
-    description="Workflow Management System",
-    url="https://kache.hms.harvard.edu/",
+    description="Persistent caching decorator",
     author="Erik Gafni",
     author_email="egafni@gmail.com",
     maintainer="Erik Gafni",

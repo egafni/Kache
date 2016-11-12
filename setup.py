@@ -5,8 +5,8 @@ import sys
 
 from setuptools import find_packages
 
-with open(os.path.join(os.path.dirname(__file__), 'kache/VERSION'), 'r') as fh:
-    __version__ = fh.read().strip()
+# with open(os.path.join(os.path.dirname(__file__), 'kache/VERSION'), 'r') as fh:
+#     __version__ = fh.read().strip()
 
 
 def find_all(path, reg_expr, inverse=False, remove_prefix=False):
@@ -31,7 +31,7 @@ print package_data
 
 setup(
     name="kache",
-    version=__version__,
+    version='0.0.9',
     description="Persistent caching decorator",
     url="http://github.com/egafni/Kache",
     author="Erik Gafni",

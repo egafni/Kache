@@ -8,14 +8,14 @@ A simple decorator that both supports caching calls to functions in memory and p
     >>> from kache import cache
     ...
     ... @cache
-    ... def x(a,b=2):
+    ... def foo(a,b=2):
     ...     return a*b
     ...
-    ... print x(1), x._stats, x._info
-    ... print x(1), x._stats, x._info
-    ... print x(2), x._stats, x._info
-    ... print x(3), x._stats, x._info
-    ... print x(3), x._stats, x._info
+    ... print foo(1), foo._stats, foo._info
+    ... print foo(1), foo._stats, foo._info
+    ... print foo(2), foo._stats, foo._info
+    ... print foo(3), foo._stats, foo._info
+    ... print foo(3), foo._stats, foo._info
     ...
     2 {'computed': 1} {'last_key': "[('a', 1), ('b', 2)]"}
     2 {'cached': 1, 'computed': 1} {'last_key': "[('a', 1), ('b', 2)]"}
@@ -29,11 +29,11 @@ The following will persist the cache to a shelf stored at **/tmp/db**.  It will 
 .. code-block:: python
 
     @cache(db='/tmp/db', hash=lambda params: params['b'])
-    def x(a,b=2):
+    def foo(a,b=2):
         return a*b
 
 The following will **only** use the value of **b** to as they hash key in the cache.
-So a call to x(a=1,b=3) after calling x(a=0,b=3) will return the same (but incorrect) result.
+So a call to foo(a=1,b=3) after calling foo(a=0,b=3) will return the same (but incorrect) result.
 
 The default hashing function for the cache key is sorted(str(**params**.items())), which can break down for complex parameters.  In these instances,
 you'll want to create your own hashing function.
@@ -42,10 +42,12 @@ you'll want to create your own hashing function.
 .. code-block:: python
 
     @cache(db='/tmp/db', hash=lambda params: params['b'])
-    def x(a,b=2):
+    def foo(a,b=2):
         return a*b
 
-    # or, if you know it will only be executed once in this session...
-    @cache(db='/tmp/db', hash=None)
-    def x(a,b=2):
+    # or, if you know it will only be executed once per interpreter session,
+    # and you want the cache to persist across sessions:
+    def foo(a,b=2):
         return a*b
+
+    result = cache(db='/tmp/db', hash=None)(foo)(a=1)

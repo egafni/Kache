@@ -1,7 +1,8 @@
 Kache
 ======
 
-A simple decorator that both supports caching calls to functions in memory and persisting the cache to disk.
+A simple decorator that both supports caching calls to functions in memory and persisting the cache to disk.  Disk caching uses :mod:`shelve` as the
+backend.
 
 .. code-block:: python
 

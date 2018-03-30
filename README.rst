@@ -1,7 +1,7 @@
 Kache
 ======
 
-A simple decorator that both supports caching calls to functions in memory and persisting the cache to disk.  Disk caching uses `shelve` as the
+A simple decorator that both supports caching calls to functions in memory and persisting the cache to disk.  Disk caching uses *shelve* as the
 backend. The default is to use an in memory cache.
 
 .. code-block:: python
@@ -36,7 +36,7 @@ The following will persist the cache to a shelf stored at **/tmp/db**.  It will 
 The following will **only** use the value of **b** as the hash key in the cache.
 So a call to foo(a=1,b=3) after calling foo(a=0,b=3) will return the same (but incorrect) result.
 
-The default hashing function for the cache key is sorted(str(**params**.items())), which can break down for complex parameters.  In these instances,
+The default hashing function for the cache key is sorted(str(params.items())), which can break down for complex parameters.  In these instances,
 you'll want to create your own hashing function.
 
 

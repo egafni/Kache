@@ -1,6 +1,15 @@
 Kache
 ======
 
+Install
++++++++
+
+.. code-block:: bash
+    pip install kache
+
+Using
++++++
+
 A simple decorator that both supports caching calls to functions in memory and persisting the cache to disk.  Disk caching uses *shelve* as the
 backend. The default is to use an in memory cache.
 

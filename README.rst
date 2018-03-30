@@ -5,7 +5,9 @@ Install
 +++++++
 
 .. code-block:: bash
+
     pip install kache
+
 
 Using
 +++++

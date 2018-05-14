@@ -13,7 +13,7 @@ def get_params(func, args, kwargs):
     sig = funcsigs.signature(func)
 
     def g():
-        for i, (hash, param) in enumerate(sig.parameters.iteritems()):
+        for i, (hash, param) in enumerate(sig.parameters.items()):
             if i < len(args):
                 yield hash, args[i]
             else:
@@ -25,7 +25,7 @@ def get_params(func, args, kwargs):
     return dict(g())
 
 
-def cache(orig_func=None, db=None, hash=lambda params: str(sorted(params.iteritems()))):
+def cache(orig_func=None, db=None, hash=lambda params: str(sorted(params.items()))):
     """
     Decorate a function so that identical calls are cached
     :param callable orig_func: function to decorate

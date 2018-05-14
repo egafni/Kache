@@ -27,11 +27,10 @@ def find_all(path, reg_expr, inverse=False, remove_prefix=False):
 install_requires = ['funcsigs']
 
 package_data = {'kache': list(find_all('kache/', '.py|.pyc$', inverse=True, remove_prefix=True))}
-print package_data
 
 setup(
     name="kache",
-    version='0.0.9',
+    version='0.1.0',
     description="Persistent caching decorator",
     url="http://github.com/egafni/Kache",
     author="Erik Gafni",
@@ -47,8 +46,8 @@ setup(
     include_package_data=True,
     package_data=package_data,
     classifiers=[
-        'Programming Language :: Python :: 2.7',
-        # 'Programming Language :: Python :: 3',
+        # 'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Operating System :: MacOS',

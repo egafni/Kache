@@ -40,11 +40,11 @@ def cache(orig_func=None, db=None, hash=lambda params: str(sorted(params.iterite
     ... def x(a,b=2):
     ...     return a*b
     ...
-    ... print x(1), x._stats, x._info
-    ... print x(1), x._stats, x._info
-    ... print x(2), x._stats, x._info
-    ... print x(3), x._stats, x._info
-    ... print x(3), x._stats, x._info
+    ... print(x(1)), x._stats, x._info
+    ... print(x(1)), x._stats, x._info
+    ... print(x(2)), x._stats, x._info
+    ... print(x(3)), x._stats, x._info
+    ... print(x(3)), x._stats, x._info
     ...
     2 {'computed': 1} {'last_hash': "[('a', 1), ('b', 2)]"}
     2 {'cached': 1, 'computed': 1} {'last_hash': "[('a', 1), ('b', 2)]"}

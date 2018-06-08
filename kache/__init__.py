@@ -71,20 +71,21 @@ def cache(orig_func=None, db=None, hash=lambda params: str(sorted(params.items()
         hash_ = orig_func.__name__ + '__' + hash(params)
         info['last_hash'] = hash_
 
-        cache = shelve.open(db) if db is not None else mem_cache
+        _cache = shelve.open(db) if db is not None else mem_cache
         try:
-            if hash_ in cache:
+            if hash_ in _cache:
                 stats['cached'] += 1
             else:
                 stats['computed'] += 1
-                cache[hash_] = orig_func(**params)
+                _cache[hash_] = orig_func(**params)
 
-            r = cache[hash_]
+            r = _cache[hash_]
         finally:
-            if hasattr(cache, 'close'):
-                cache.close()
+            if hasattr(_cache, 'close'):
+                _cache.close()
         return r
 
     decorated._stats = stats
     decorated._info = info
+    decorated._mem_cache = mem_cache
     return decorated

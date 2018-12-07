@@ -1,5 +1,6 @@
 import functools
 import shelve
+
 import funcsigs
 
 
@@ -13,24 +14,22 @@ def get_params(func, args, kwargs):
     sig = funcsigs.signature(func)
     kwargs = kwargs.copy()
 
-    def g():
-        for i, (key, param) in enumerate(sig.parameters.items()):
-            if i < len(args):
-                if key in kwargs:
-                    raise TypeError("%s() got multiple values for argument '%s'" % (func.__name__, key))
-                    
-                yield key, args[i]
-                
-            else:
-                val = kwargs.pop(key, param.default)
-                if val == funcsigs._empty:
-                    raise TypeError("%s() missing 1 required positional argument: '%s'" % (func.__name__, key))
-                yield key, val
+    items = []
+    for i, (key, param) in enumerate(sig.parameters.items()):
+        if i < len(args):
+            if key in kwargs:
+                raise TypeError("%s() got multiple values for argument '%s'" % (func.__name__, key))
+            items.append((key, val))
+        else:
+            val = kwargs.pop(key, param.default)
+            if val == funcsigs._empty:
+                raise TypeError("%s() missing 1 required positional argument: '%s'" % (func.__name__, key))
+            items.append((key, val))
 
-        if kwargs:
-            raise TypeError("%s() got an unexpected keyword argument '%s'" % (func.__name__, key))
+    if kwargs:
+        raise TypeError("%s() got an unexpected keyword argument '%s'" % (func.__name__, key))
 
-    return dict(g())
+    return dict(items)
 
 
 def cache(orig_func=None, db=None, hash=lambda params: str(sorted(params.items()))):

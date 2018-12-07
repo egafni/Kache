@@ -11,16 +11,24 @@ def get_params(func, args, kwargs):
     {'x': 1, 'y': 2, 'z': 1}
     """
     sig = funcsigs.signature(func)
+    kwargs = kwargs.copy()
 
     def g():
-        for i, (hash, param) in enumerate(sig.parameters.items()):
+        for i, (key, param) in enumerate(sig.parameters.items()):
             if i < len(args):
-                yield hash, args[i]
+                if key in kwargs:
+                    raise TypeError("%s() got multiple values for argument '%s'" % (func.__name__, key))
+                    
+                yield key, args[i]
+                
             else:
-                val = kwargs.get(hash, param.default)
+                val = kwargs.pop(key, param.default)
                 if val == funcsigs._empty:
-                    raise AttributeError('`%s` requires the parameter `%s`' % (func, hash))
-                yield hash, val
+                    raise TypeError("%s() missing 1 required positional argument: '%s'" % (func.__name__, key))
+                yield key, val
+
+        if kwargs:
+            raise TypeError("%s() got an unexpected keyword argument '%s'" % (func.__name__, key))
 
     return dict(g())
 

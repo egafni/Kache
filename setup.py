@@ -30,7 +30,7 @@ package_data = {'kache': list(find_all('kache/', '.py|.pyc$', inverse=True, remo
 
 setup(
     name="kache",
-    version='0.1.1',
+    version='0.1.2',
     description="Persistent caching decorator",
     url="http://github.com/egafni/Kache",
     author="Erik Gafni",

@@ -27,7 +27,7 @@ def get_params(func, args, kwargs):
             items.append((key, val))
 
     if kwargs:
-        raise TypeError("%s() got an unexpected keyword argument '%s'" % (func.__name__, list(kwargs.keys())[0]))
+        raise TypeError("%s() got an unexpected keyword argument '%s'" % (func.__name__, list(kwargs.keys())[0]q))
 
     return dict(items)
 

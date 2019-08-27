@@ -19,7 +19,7 @@ def get_params(func, args, kwargs):
         if i < len(args):
             if key in kwargs:
                 raise TypeError("%s() got multiple values for argument '%s'" % (func.__name__, key))
-            items.append((key, val))
+            items.append((key, args[i]))
         else:
             val = kwargs.pop(key, param.default)
             if val == funcsigs._empty:
@@ -27,7 +27,7 @@ def get_params(func, args, kwargs):
             items.append((key, val))
 
     if kwargs:
-        raise TypeError("%s() got an unexpected keyword argument '%s'" % (func.__name__, list(kwargs.keys())[0]q))
+        raise TypeError("%s() got an unexpected keyword argument '%s'" % (func.__name__, list(kwargs.keys())[0]))
 
     return dict(items)
 
